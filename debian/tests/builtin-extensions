@@ -1,0 +1,23 @@
+#!/usr/bin/ruby3.0
+
+
+extensions = [
+  ["dbm"],
+  ["fiddle"],
+  ["gdbm"],
+  ["openssl", '>= 3.0.0'],
+  ["psych"],
+  ["zlib"],
+]
+
+failed = 0
+extensions.each do |ext|
+  begin
+    gem *ext
+    puts "Extension #{ext.join(" ")}: OK"
+  rescue LoadError
+    failed += 1
+  end
+end
+
+exit(failed == 0 ? 0 : 1)
